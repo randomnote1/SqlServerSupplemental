@@ -1,0 +1,45 @@
+name: Publish Wiki
+
+# Controls when the action will run. 
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  publishWiki:
+    if: ( github.event.pull_request.merged == true ) && ( github.base_ref == 'main' )
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout AlertManagement
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}
+          path: 'managementPack'
+      
+      - name: Checkout Wiki
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}.wiki
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          path: 'wiki'
+
+      - name: Copy Wiki Files
+        shell: powershell
+        run: |
+          Remove-Item -Path .\wiki\* -Recurse
+          Get-ChildItem -Path .\managementPack\WikiSource\ -Recurse | Copy-Item -Destination .\wiki\
+
+      - name: Commit Wiki Changes
+        shell: powershell
+        run: |
+          Set-Location -Path .\wiki\
+          git config --global user.email "$env:GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name $env:GITHUB_ACTOR
+          git add -A
+          git commit -m 'Automatic Wiki Update'
+          git push

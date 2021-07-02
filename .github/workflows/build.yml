@@ -1,0 +1,61 @@
+name: Build Management Pack
+
+# When a push occurs to the dev or main branches
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  
+  build:
+    if: ( github.ref == 'refs/heads/main' ) ||  ( github.ref == 'refs/heads/dev' )
+    
+    runs-on: windows-latest
+
+    steps:
+      # Check out the repository the pull request in merging into (dev/main)
+      - name: Checkout Base Repo
+        uses: actions/checkout@v2
+        with:
+          path: base
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Execute the build PowerShell script
+      - name: Execute build script
+        if: ( github.ref == 'refs/heads/main' ) ||  ( github.ref == 'refs/heads/dev' )
+        shell: powershell
+        run: .\base\Build\build.ps1
+      
+      # Upload the management pack files as artifacts
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.ManagementPackName }}
+          path: ${{ env.ArtifactFileName }}
+
+      # Create a release of the management pack
+      - name: Generate Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ env.Version }}
+          tag_name: v${{ env.Version }}
+          prerelease: false
+          files: ${{ env.ArtifactFileName }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Create a beta release of the management pack
+      - name: Generate Beta Release
+        if: github.ref == 'refs/heads/dev'
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ env.Version }}
+          tag_name: v${{ env.Version }}
+          prerelease: true
+          files: ${{ env.ArtifactFileName }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
