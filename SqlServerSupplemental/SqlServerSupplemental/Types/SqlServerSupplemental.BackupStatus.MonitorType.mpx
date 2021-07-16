@@ -1,0 +1,256 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <MonitorTypes>
+      <UnitMonitorType ID="SqlServerSupplemental.BackupStatus.MonitorType" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="GoodCondition" NoDetection="false" />
+          <MonitorTypeState ID="WarningCondition" NoDetection="false" />
+          <MonitorTypeState ID="CriticalCondition" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element name="MachineName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="InstanceName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="AvailabilityGroupName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="FullBackupFrequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="DiffBackupFrequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="TlogBackupFrequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedFullBackupsWarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedDiffBackupsWarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedTlogBackupsWarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedFullBackupsCriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedDiffBackupsCriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedTlogBackupsCriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromAllBackups" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromFullBackup" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromDiffBackup" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromTlogBackup" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IgnoreBackupStatusForReadableSecondaries" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="TimeoutSeconds" type="xsd:integer" minOccurs="1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="DebugLogging" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="FullBackupFrequency" Selector="$Config/FullBackupFrequency$" ParameterType="int" />
+          <OverrideableParameter ID="DiffBackupFrequency" Selector="$Config/DiffBackupFrequency$" ParameterType="int" />
+          <OverrideableParameter ID="TlogBackupFrequency" Selector="$Config/TlogBackupFrequency$" ParameterType="int" />
+          <OverrideableParameter ID="MissedFullBackupsWarningThreshold" Selector="$Config/MissedFullBackupsWarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedDiffBackupsWarningThreshold" Selector="$Config/MissedDiffBackupsWarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedTlogBackupsWarningThreshold" Selector="$Config/MissedTlogBackupsWarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedFullBackupsCriticalThreshold" Selector="$Config/MissedFullBackupsCriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedDiffBackupsCriticalThreshold" Selector="$Config/MissedDiffBackupsCriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedTlogBackupsCriticalThreshold" Selector="$Config/MissedTlogBackupsCriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="ExcludeFromAllBackups" Selector="$Config/ExcludeFromAllBackups$" ParameterType="string" />
+          <OverrideableParameter ID="ExcludeFromFullBackup" Selector="$Config/ExcludeFromFullBackup$" ParameterType="string" />
+          <OverrideableParameter ID="ExcludeFromDiffBackup" Selector="$Config/ExcludeFromDiffBackup$" ParameterType="string" />
+          <OverrideableParameter ID="ExcludeFromTlogBackup" Selector="$Config/ExcludeFromTlogBackup$" ParameterType="string" />
+          <OverrideableParameter ID="IgnoreBackupStatusForReadableSecondaries" Selector="$Config/IgnoreBackupStatusForReadableSecondaries$" ParameterType="bool" />
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="DebugLogging" Selector="$Config/DebugLogging$" ParameterType="bool" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="SqlServerSupplemental.BackupStatus.DataSource">
+              <MachineName>$Config/MachineName$</MachineName>
+              <InstanceName>$Config/InstanceName$</InstanceName>
+              <AvailabilityGroupName>$Config/AvailabilityGroupName$</AvailabilityGroupName>
+              <FullBackupFrequency>$Config/FullBackupFrequency$</FullBackupFrequency>
+              <DiffBackupFrequency>$Config/DiffBackupFrequency$</DiffBackupFrequency>
+              <TlogBackupFrequency>$Config/TlogBackupFrequency$</TlogBackupFrequency>
+              <MissedFullBackupsWarningThreshold>$Config/MissedFullBackupsWarningThreshold$</MissedFullBackupsWarningThreshold>
+              <MissedDiffBackupsWarningThreshold>$Config/MissedDiffBackupsWarningThreshold$</MissedDiffBackupsWarningThreshold>
+              <MissedTlogBackupsWarningThreshold>$Config/MissedTlogBackupsWarningThreshold$</MissedTlogBackupsWarningThreshold>
+              <MissedFullBackupsCriticalThreshold>$Config/MissedFullBackupsCriticalThreshold$</MissedFullBackupsCriticalThreshold>
+              <MissedDiffBackupsCriticalThreshold>$Config/MissedDiffBackupsCriticalThreshold$</MissedDiffBackupsCriticalThreshold>
+              <MissedTlogBackupsCriticalThreshold>$Config/MissedTlogBackupsCriticalThreshold$</MissedTlogBackupsCriticalThreshold>
+              <ExcludeFromAllBackups>$Config/ExcludeFromAllBackups$</ExcludeFromAllBackups>
+              <ExcludeFromFullBackup>$Config/ExcludeFromFullBackup$</ExcludeFromFullBackup>
+              <ExcludeFromDiffBackup>$Config/ExcludeFromDiffBackup$</ExcludeFromDiffBackup>
+              <ExcludeFromTlogBackup>$Config/ExcludeFromTlogBackup$</ExcludeFromTlogBackup>
+              <IgnoreBackupStatusForReadableSecondaries>$Config/IgnoreBackupStatusForReadableSecondaries$</IgnoreBackupStatusForReadableSecondaries>
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              <DebugLogging>$Config/DebugLogging$</DebugLogging>
+            </DataSource>
+            <ProbeAction ID="Probe" TypeID="SqlServerSupplemental.BackupStatus.ProbeAction">
+              <MachineName>$Config/MachineName$</MachineName>
+              <InstanceName>$Config/InstanceName$</InstanceName>
+              <AvailabilityGroupName>$Config/AvailabilityGroupName$</AvailabilityGroupName>
+              <FullBackupFrequency>$Config/FullBackupFrequency$</FullBackupFrequency>
+              <DiffBackupFrequency>$Config/DiffBackupFrequency$</DiffBackupFrequency>
+              <TlogBackupFrequency>$Config/TlogBackupFrequency$</TlogBackupFrequency>
+              <MissedFullBackupsWarningThreshold>$Config/MissedFullBackupsWarningThreshold$</MissedFullBackupsWarningThreshold>
+              <MissedDiffBackupsWarningThreshold>$Config/MissedDiffBackupsWarningThreshold$</MissedDiffBackupsWarningThreshold>
+              <MissedTlogBackupsWarningThreshold>$Config/MissedTlogBackupsWarningThreshold$</MissedTlogBackupsWarningThreshold>
+              <MissedFullBackupsCriticalThreshold>$Config/MissedFullBackupsCriticalThreshold$</MissedFullBackupsCriticalThreshold>
+              <MissedDiffBackupsCriticalThreshold>$Config/MissedDiffBackupsCriticalThreshold$</MissedDiffBackupsCriticalThreshold>
+              <MissedTlogBackupsCriticalThreshold>$Config/MissedTlogBackupsCriticalThreshold$</MissedTlogBackupsCriticalThreshold>
+              <ExcludeFromAllBackups>$Config/ExcludeFromAllBackups$</ExcludeFromAllBackups>
+              <ExcludeFromFullBackup>$Config/ExcludeFromFullBackup$</ExcludeFromFullBackup>
+              <ExcludeFromDiffBackup>$Config/ExcludeFromDiffBackup$</ExcludeFromDiffBackup>
+              <ExcludeFromTlogBackup>$Config/ExcludeFromTlogBackup$</ExcludeFromTlogBackup>
+              <IgnoreBackupStatusForReadableSecondaries>$Config/IgnoreBackupStatusForReadableSecondaries$</IgnoreBackupStatusForReadableSecondaries>
+              <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              <DebugLogging>$Config/DebugLogging$</DebugLogging>
+            </ProbeAction>
+            <ConditionDetection ID="GoodConditionFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Health']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">Healthy</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="WarningConditionFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Health']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">Warning</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="CriticalConditionFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Health']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">Critical</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="GoodCondition">
+              <Node ID="GoodConditionFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="WarningCondition">
+              <Node ID="WarningConditionFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="CriticalCondition">
+              <Node ID="CriticalConditionFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+          <OnDemandDetections>
+            <OnDemandDetection MonitorTypeStateID="GoodCondition">
+              <Node ID="GoodConditionFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+            <OnDemandDetection MonitorTypeStateID="WarningCondition">
+              <Node ID="WarningConditionFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+            <OnDemandDetection MonitorTypeStateID="CriticalCondition">
+              <Node ID="CriticalConditionFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+          </OnDemandDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType">
+          <Name>Backup Status Monitor Type</Name>
+          <Description>The base type which defines a backup status monitor.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="FullBackupFrequency">
+          <Name>Full Backup Frequency</Name>
+          <Description>How often full backups are taken in minutes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="DiffBackupFrequency">
+          <Name>Differential Backup Frequency</Name>
+          <Description>How often differential backups are taken in minutes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="TlogBackupFrequency">
+          <Name>Transaction Log Backup Frequency</Name>
+          <Description>How often transaction log backups are taken in minutes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="MissedFullBackupsWarningThreshold">
+          <Name>Missed Full Backups Warning Threshold</Name>
+          <Description>The number of missed full backups which indicate a warning.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="MissedDiffBackupsWarningThreshold">
+          <Name>Missed Differential Backups Warning Threshold</Name>
+          <Description>The number of missed differential backups which indicate a warning.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="MissedTlogBackupsWarningThreshold">
+          <Name>Missed Transaction Log Backups Warning Threshold</Name>
+          <Description>The number of missed transaction log backups which indicate a warning.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="MissedFullBackupsCriticalThreshold">
+          <Name>Missed Full Backups Critical Threshold</Name>
+          <Description>The number of missed full backups which indicate critical health.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="MissedDiffBackupsCriticalThreshold">
+          <Name>Missed Differential Backups Critical Threshold</Name>
+          <Description>The number of missed differential backups which indicate critical health.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="MissedTlogBackupsCriticalThreshold">
+          <Name>Missed Transaction Log Backups Critical Threshold</Name>
+          <Description>The number of missed transaction log backups which indicate critical health.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="ExcludeFromAllBackups">
+          <Name>Exclude From All Backup Checks</Name>
+          <Description>Databases which should be excluded from all backup checks. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="ExcludeFromFullBackup">
+          <Name>Exclude From Full Backup Check</Name>
+          <Description>Databases which should be excluded from the full backup check. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="ExcludeFromDiffBackup">
+          <Name>Exclude From Differential Backup Check</Name>
+          <Description>Databases which should be excluded from the differential backup check. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="ExcludeFromTlogBackup">
+          <Name>Exclude From Transaction Log Backup Check</Name>
+          <Description>Databases which should be excluded from the transaction log backup check. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="IgnoreBackupStatusForReadableSecondaries">
+          <Name>Ignore Backup Status for Readable Secondaries</Name>
+          <Description>Exclude the backup status for databases which are readable secondaries in an availability group.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="IntervalSeconds">
+          <Name>Interval Seconds</Name>
+          <Description>How frequently to collect data from the data source.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>Synchronize the execution of the data source at the specified time.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>The length of time to wait for the script to complete.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.MonitorType" SubElementID="DebugLogging">
+          <Name>Debug Logging</Name>
+          <Description>Enable debug logging to the Operations Manager event log.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

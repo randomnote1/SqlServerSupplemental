@@ -1,0 +1,19 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Presentation>
+    <Folders>
+      <Folder ID="SqlServerSupplemental.BackupStatus.Folder" Accessibility="Internal" ParentFolder="SqlServerSupplemental.Folder" />
+    </Folders>
+    <FolderItems>
+      <FolderItem ElementID="SqlServerSupplemental.BackupStatus.Dashboard.View" ID="SqlServerSupplemental.BackupStatus.Folder.FolderItem" Folder="SqlServerSupplemental.BackupStatus.Folder" />
+    </FolderItems>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.Folder">
+          <Name>Backup Status</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

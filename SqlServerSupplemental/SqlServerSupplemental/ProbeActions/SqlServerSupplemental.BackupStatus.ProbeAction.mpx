@@ -1,0 +1,220 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <ProbeActionModuleType ID="SqlServerSupplemental.BackupStatus.ProbeAction" Accessibility="Internal" Batching="false" PassThrough="false">
+        <Configuration>
+          <xsd:element name="MachineName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="InstanceName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="AvailabilityGroupName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="FullBackupFrequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="DiffBackupFrequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="TlogBackupFrequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedFullBackupsWarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedDiffBackupsWarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedTlogBackupsWarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedFullBackupsCriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedDiffBackupsCriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MissedTlogBackupsCriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromAllBackups" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromFullBackup" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromDiffBackup" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExcludeFromTlogBackup" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IgnoreBackupStatusForReadableSecondaries" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="TimeoutSeconds" type="xsd:integer" minOccurs="1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="DebugLogging" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <!--
+            Full Backup frequency - How often (in minutes) a full backup is taken
+            Full Backup Warning Threshold - # of missed backups to trigger a warning alert
+            Full Backup Critical Threshold - # of missed backups to trigger a crritical alert
+            Differential Backup frequency - How often (in minutes) a differential backup is taken
+            Differential Backup Warning Threshold - # of missed backups to trigger a warning alert
+            Differential Backup Critical Threshold - # of missed backups to trigger a crritical alert
+            Transaction Log Backup frequency - How often (in minutes) a transaction log backup is taken
+            Transaction LogBackup Warning Threshold - # of missed backups to trigger a warning alert
+            Transaction LogBackup Critical Threshold - # of missed backups to trigger a crritical alert
+          -->
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="FullBackupFrequency" Selector="$Config/FullBackupFrequency$" ParameterType="int" />
+          <OverrideableParameter ID="DiffBackupFrequency" Selector="$Config/DiffBackupFrequency$" ParameterType="int" />
+          <OverrideableParameter ID="TlogBackupFrequency" Selector="$Config/TlogBackupFrequency$" ParameterType="int" />
+          <OverrideableParameter ID="MissedFullBackupsWarningThreshold" Selector="$Config/MissedFullBackupsWarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedDiffBackupsWarningThreshold" Selector="$Config/MissedDiffBackupsWarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedTlogBackupsWarningThreshold" Selector="$Config/MissedTlogBackupsWarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedFullBackupsCriticalThreshold" Selector="$Config/MissedFullBackupsCriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedDiffBackupsCriticalThreshold" Selector="$Config/MissedDiffBackupsCriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="MissedTlogBackupsCriticalThreshold" Selector="$Config/MissedTlogBackupsCriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="ExcludeFromAllBackups" Selector="$Config/ExcludeFromAllBackups$" ParameterType="string" />
+          <OverrideableParameter ID="ExcludeFromFullBackup" Selector="$Config/ExcludeFromFullBackup$" ParameterType="string" />
+          <OverrideableParameter ID="ExcludeFromDiffBackup" Selector="$Config/ExcludeFromDiffBackup$" ParameterType="string" />
+          <OverrideableParameter ID="ExcludeFromTlogBackup" Selector="$Config/ExcludeFromTlogBackup$" ParameterType="string" />
+          <OverrideableParameter ID="IgnoreBackupStatusForReadableSecondaries" Selector="$Config/IgnoreBackupStatusForReadableSecondaries$" ParameterType="bool" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="DebugLogging" Selector="$Config/DebugLogging$" ParameterType="bool" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="Probe" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagTriggerOnlyProbe">
+                <ScriptName>Get-DatabaseBackupStatus.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/Get-DatabaseBackupStatus.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>MachineName</Name>
+                    <Value>$Config/MachineName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>InstanceName</Name>
+                    <Value>$Config/InstanceName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>AvailabilityGroupName</Name>
+                    <Value>$Config/AvailabilityGroupName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>FullBackupFrequency</Name>
+                    <Value>$Config/FullBackupFrequency$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>DiffBackupFrequency</Name>
+                    <Value>$Config/DiffBackupFrequency$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TlogBackupFrequency</Name>
+                    <Value>$Config/TlogBackupFrequency$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MissedFullBackupsWarningThreshold</Name>
+                    <Value>$Config/MissedFullBackupsWarningThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MissedDiffBackupsWarningThreshold</Name>
+                    <Value>$Config/MissedDiffBackupsWarningThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MissedTlogBackupsWarningThreshold</Name>
+                    <Value>$Config/MissedTlogBackupsWarningThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MissedFullBackupsCriticalThreshold</Name>
+                    <Value>$Config/MissedFullBackupsCriticalThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MissedDiffBackupsCriticalThreshold</Name>
+                    <Value>$Config/MissedDiffBackupsCriticalThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MissedTlogBackupsCriticalThreshold</Name>
+                    <Value>$Config/MissedTlogBackupsCriticalThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ExcludeFromAllBackups</Name>
+                    <Value>$Config/ExcludeFromAllBackups$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ExcludeFromFullBackup</Name>
+                    <Value>$Config/ExcludeFromFullBackup$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ExcludeFromDiffBackup</Name>
+                    <Value>$Config/ExcludeFromDiffBackup$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ExcludeFromTlogBackup</Name>
+                    <Value>$Config/ExcludeFromTlogBackup$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>DebugLogging</Name>
+                    <Value>$Config/DebugLogging$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>IgnoreBackupStatusForReadableSecondaries</Name>
+                    <Value>$Config/IgnoreBackupStatusForReadableSecondaries$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+                <StrictErrorHandling>false</StrictErrorHandling>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <TriggerOnly>true</TriggerOnly>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction">
+          <Name>Backup Status Probe Action</Name>
+          <Description>Executes the script to collect the database backup status.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="FullBackupFrequency">
+          <Name>Full Backup Frequency</Name>
+          <Description>How often full backups are taken in minutes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="DiffBackupFrequency">
+          <Name>Differential Backup Frequency</Name>
+          <Description>How often differential backups are taken in minutes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="TlogBackupFrequency">
+          <Name>Transaction Log Backup Frequency</Name>
+          <Description>How often transaction log backups are taken in minutes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="MissedFullBackupsWarningThreshold">
+          <Name>Missed Full Backups Warning Threshold</Name>
+          <Description>The number of missed full backups which indicate a warning.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="MissedDiffBackupsWarningThreshold">
+          <Name>Missed Differential Backups Warning Threshold</Name>
+          <Description>The number of missed differential backups which indicate a warning.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="MissedTlogBackupsWarningThreshold">
+          <Name>Missed Transaction Log Backups Warning Threshold</Name>
+          <Description>The number of missed transaction log backups which indicate a warning.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="MissedFullBackupsCriticalThreshold">
+          <Name>Missed Full Backups Critical Threshold</Name>
+          <Description>The number of missed full backups which indicate critical health.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="MissedDiffBackupsCriticalThreshold">
+          <Name>Missed Differential Backups Critical Threshold</Name>
+          <Description>The number of missed differential backups which indicate critical health.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="MissedTlogBackupsCriticalThreshold">
+          <Name>Missed Transaction Log Backups Critical Threshold</Name>
+          <Description>The number of missed transaction log backups which indicate critical health.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="ExcludeFromAllBackups">
+          <Name>Exclude From All Backup Checks</Name>
+          <Description>Databases which should be excluded from all backup checks. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="ExcludeFromFullBackup">
+          <Name>Exclude From Full Backup Check</Name>
+          <Description>Databases which should be excluded from the full backup check. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="ExcludeFromDiffBackup">
+          <Name>Exclude From Differential Backup Check</Name>
+          <Description>Databases which should be excluded from the differential backup check. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="ExcludeFromTlogBackup">
+          <Name>Exclude From Transaction Log Backup Check</Name>
+          <Description>Databases which should be excluded from the transaction log backup check. This parameter accepts a regular expression to select the databases.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="IgnoreBackupStatusForReadableSecondaries">
+          <Name>Ignore Backup Status for Readable Secondaries</Name>
+          <Description>Exclude the backup status for databases which are readable secondaries in an availability group.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>The length of time to wait for the script to complete.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.ProbeAction" SubElementID="DebugLogging">
+          <Name>Debug Logging</Name>
+          <Description>Enable debug logging to the Operations Manager event log.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>
