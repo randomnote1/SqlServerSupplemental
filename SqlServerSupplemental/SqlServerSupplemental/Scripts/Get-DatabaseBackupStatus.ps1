@@ -69,6 +69,10 @@ param
     [System.String]
     $IgnoreBackupStatusForReadableSecondaries,
 
+    [Parameter()]
+    [Switch]
+    $ConsoleTask,
+
 	[Parameter()]
 	[System.String]
 	$DebugLogging = 'false',
@@ -500,7 +504,7 @@ if ( $debug )
 	Write-Debug -Message $message
 }
 
-if (-not $TestRun)
+if (-not $TestRun -and -not $ConsoleTask)
 {
     $bag = $momapi.CreatePropertyBag()
     $bag.AddValue('Health',$healthState)
@@ -509,6 +513,11 @@ if (-not $TestRun)
     # Return the property bag
 	#$momapi.Return($bag)
 	$bag
+}
+
+if ($ConsoleTask)
+{
+    return $alertDetailsString
 }
 
 #endregion return results

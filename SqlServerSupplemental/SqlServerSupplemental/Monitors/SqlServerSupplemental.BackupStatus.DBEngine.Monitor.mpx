@@ -3,21 +3,20 @@
     <Monitors>
       <UnitMonitor ID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" Accessibility="Public" Enabled="true" Target="SqlWindows!Microsoft.SQLServer.Windows.DBEngine" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="SqlServerSupplemental.BackupStatus.MonitorType" ConfirmDelivery="true">
         <Category>PerformanceHealth</Category>
-        <!--<AlertSettings AlertMessage="Microsoft.SqlServer.Windows.Database.SharePoint.Content.RoleAssignments.AlertMessage">
-          <AlertOnState>Error</AlertOnState>-->
-        <!-- Warning or Error should match OperationalStates below  -->
-        <!--<AutoResolve>true</AutoResolve>
+        <AlertSettings AlertMessage="SqlServerSupplemental.BackupStatus.DBEngine.Monitor.AlertMessage">
+          <AlertOnState>Warning</AlertOnState>
+          <!-- Warning or Error should match OperationalStates below  -->
+          <AutoResolve>true</AutoResolve>
           <AlertPriority>Normal</AlertPriority>
-          <AlertSeverity>MatchMonitorHealth</AlertSeverity>-->
-        <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
-        <!--<AlertParameters>
-            <AlertParameter1>$Target/Property[Type="Microsoft.SqlServer.Windows.Database.SharePoint"]/MachineName$</AlertParameter1>
-            <AlertParameter2>$Target/Property[Type="Microsoft.SqlServer.Windows.Database.SharePoint"]/InstanceName$</AlertParameter2>
-            <AlertParameter3>$Target/Property[Type="Microsoft.SqlServer.Windows.Database.SharePoint"]/DatabaseName$</AlertParameter3>
-            <AlertParameter4>$Data/Context/Property[@Name='Threshold']$</AlertParameter4>
-            <AlertParameter5>$Data/Context/Property[@Name='Result']$</AlertParameter5>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
+          <AlertParameters>
+            <AlertParameter1>$Target/Property[Type="SqlCore!Microsoft.SQLServer.Core.DBEngine"]/MachineName$</AlertParameter1>
+            <AlertParameter2>$Target/Property[Type="SqlCore!Microsoft.SQLServer.Core.DBEngine"]/InstanceName$</AlertParameter2>
+            <AlertParameter3>$Data/Context/Property[@Name='Health']$</AlertParameter3>
+            <AlertParameter4>$Data/Context/Property[@Name='Details']$</AlertParameter4>
           </AlertParameters>
-        </AlertSettings>-->
+        </AlertSettings>
         <OperationalStates>
           <OperationalState ID="GoodCondition" MonitorTypeStateID="GoodCondition" HealthState="Success" />
           <OperationalState ID="WarningCondition" MonitorTypeStateID="WarningCondition" HealthState="Warning" />
@@ -50,6 +49,11 @@
       </UnitMonitor>
     </Monitors>
   </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor.AlertMessage" />
+    </StringResources>
+  </Presentation>
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
@@ -68,6 +72,15 @@
         <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" SubElementID="CriticalCondition">
           <Name>Critical</Name>
           <Description>One or more databases are missing backups which have breached the critical threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor.AlertMessage">
+          <Name>Backups out of compliance</Name>
+          <Description>One or more databases are missing backups have have breached the {2} threshold.
+
+Computer: {0}
+Instance: {1}
+Details:
+{3}</Description>
         </DisplayString>
       </DisplayStrings>
       <KnowledgeArticles>
