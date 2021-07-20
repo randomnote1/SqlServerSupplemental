@@ -1,0 +1,117 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Monitors>
+      <UnitMonitor ID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" Accessibility="Public" Enabled="true" Target="SqlWindows!Microsoft.SQLServer.Windows.DBEngine" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="SqlServerSupplemental.BackupStatus.MonitorType" ConfirmDelivery="true">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="SqlServerSupplemental.BackupStatus.DBEngine.Monitor.AlertMessage">
+          <AlertOnState>Warning</AlertOnState>
+          <!-- Warning or Error should match OperationalStates below  -->
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
+          <AlertParameters>
+            <AlertParameter1>$Target/Property[Type="SqlCore!Microsoft.SQLServer.Core.DBEngine"]/MachineName$</AlertParameter1>
+            <AlertParameter2>$Target/Property[Type="SqlCore!Microsoft.SQLServer.Core.DBEngine"]/InstanceName$</AlertParameter2>
+            <AlertParameter3>$Data/Context/Property[@Name='Health']$</AlertParameter3>
+            <AlertParameter4>$Data/Context/Property[@Name='Details']$</AlertParameter4>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="GoodCondition" MonitorTypeStateID="GoodCondition" HealthState="Success" />
+          <OperationalState ID="WarningCondition" MonitorTypeStateID="WarningCondition" HealthState="Warning" />
+          <OperationalState ID="CriticalCondition" MonitorTypeStateID="CriticalCondition" HealthState="Error" />
+          <!-- HealthState = Warning or Error -->
+        </OperationalStates>
+        <Configuration>
+          <MachineName>$Target/Property[Type="SqlCore!Microsoft.SQLServer.Core.DBEngine"]/MachineName$</MachineName>
+          <InstanceName>$Target/Property[Type="SqlCore!Microsoft.SQLServer.Core.DBEngine"]/InstanceName$</InstanceName>
+          <AvailabilityGroupName></AvailabilityGroupName>
+          <FullBackupFrequency>10080</FullBackupFrequency>
+          <DiffBackupFrequency>1440</DiffBackupFrequency>
+          <TlogBackupFrequency>360</TlogBackupFrequency>
+          <MissedFullBackupsWarningThreshold>1</MissedFullBackupsWarningThreshold>
+          <MissedDiffBackupsWarningThreshold>2</MissedDiffBackupsWarningThreshold>
+          <MissedTlogBackupsWarningThreshold>2</MissedTlogBackupsWarningThreshold>
+          <MissedFullBackupsCriticalThreshold>2</MissedFullBackupsCriticalThreshold>
+          <MissedDiffBackupsCriticalThreshold>4</MissedDiffBackupsCriticalThreshold>
+          <MissedTlogBackupsCriticalThreshold>4</MissedTlogBackupsCriticalThreshold>
+          <ExcludeFromAllBackups>^tempdb$</ExcludeFromAllBackups>
+          <ExcludeFromFullBackup></ExcludeFromFullBackup>
+          <ExcludeFromDiffBackup></ExcludeFromDiffBackup>
+          <ExcludeFromTlogBackup></ExcludeFromTlogBackup>
+          <IgnoreBackupStatusForReadableSecondaries>true</IgnoreBackupStatusForReadableSecondaries>
+          <IntervalSeconds>900</IntervalSeconds>
+          <SyncTime></SyncTime>
+          <TimeoutSeconds>120</TimeoutSeconds>
+          <DebugLogging>false</DebugLogging>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor.AlertMessage" />
+    </StringResources>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor">
+          <Name>DB Engine Database Backup Status</Name>
+          <Description>Monitors compliance with the backup strategy of databases in the specified instance excluding any databases which are a member of an availability group.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" SubElementID="GoodCondition">
+          <Name>Healthy</Name>
+          <Description>Database backups are in compliance with the backup strategy.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" SubElementID="WarningCondition">
+          <Name>Warning</Name>
+          <Description>One or more databases are missing backups which have breached the warning threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" SubElementID="CriticalCondition">
+          <Name>Critical</Name>
+          <Description>One or more databases are missing backups which have breached the critical threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor.AlertMessage">
+          <Name>Backups out of compliance</Name>
+          <Description>One or more databases are missing backups have have breached the {2} threshold.
+
+Computer: {0}
+Instance: {1}
+Details:
+{3}</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="SqlServerSupplemental.BackupStatus.DBEngine.Monitor" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>Monitors compliance with the backup strategy of databases in the specified instance excluding any databases which are a member of an availability group.</maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Causes</maml:title>
+              <maml:list>
+                <maml:listItem>
+                  <maml:para>
+                    <maml:ui>Warning</maml:ui> - One or more databases have missed enough backups to breach the defined warning threshold.
+                  </maml:para>
+                </maml:listItem>
+                <maml:listItem>
+                  <maml:para>
+                    <maml:ui>Critical</maml:ui> - One or more databases have missed enough backups to breach the defined critical threshold.
+                  </maml:para>
+                </maml:listItem>
+              </maml:list>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Resolutions</maml:title>
+              <maml:para>Investigate the backup job(s) for errors, misconfigurations, and/or communication errors.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

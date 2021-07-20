@@ -1,0 +1,38 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Presentation>
+    <ComponentTypes>
+      <ComponentType ID="SqlServerSupplemental.BackupStatus.Dashboard.View" Accessibility="Public" Base="MSVL!Microsoft.SQLServer.Visualization.Library.DatacenterDashboard" Lifetime="ReferenceCount" />
+    </ComponentTypes>
+    <ComponentReferences>
+      <ComponentReference ID="SqlServerSupplemental.BackupStatus.Dashboard.View.Reference" Accessibility="Public" TypeID="SqlServerSupplemental.BackupStatus.Dashboard.View" Parent="SqlServerSupplemental.BackupStatus.Folder" />
+    </ComponentReferences>
+    <ComponentOverrides>
+      <ComponentOverride ID="SqlServerSupplemental.BackupStatus.Dashboard.View.Override" TypeID="SqlServerSupplemental.BackupStatus.Dashboard.View">
+        <Bindings>
+          <Binding PropertyId="SerializedConfiguration">
+            <SimpleValue Type="xsd://string" Value="&lt;DashboardConfiguration version=&quot;2&quot; missedStates=&quot;63&quot;&gt;&lt;DatacenterGroup groupId=&quot;30bc4d6f-2499-4465-98e3-49ebf85f347a&quot; instanceGuid=&quot;30bc4d6f-2499-4465-98e3-49ebf85f347a&quot; displayName=&quot;Database Engines and Availability Groups&quot; order=&quot;1&quot; missedStates=&quot;63&quot;&gt;&lt;ClassType classId=&quot;Microsoft.SQLServer.Windows.Discovery!Microsoft.SQLServer.Windows.AvailabilityGroupHealth&quot; /&gt;&lt;ClassType classId=&quot;Microsoft.SQLServer.Windows.Discovery!Microsoft.SQLServer.Windows.DBEngine&quot; /&gt;&lt;GroupTile type=&quot;State&quot; tileId=&quot;585d418c-0692-4a98-87fd-801f88ccd15e&quot; displayName=&quot;&quot; order=&quot;0&quot; /&gt;&lt;GroupTile type=&quot;AggregatedMonitor&quot; tileId=&quot;40d45f18-7097-4d7e-b9fe-9bdcab6aedbb&quot; displayName=&quot;Backup Status&quot; order=&quot;1&quot;&gt;&lt;GroupTileMap classId=&quot;Microsoft.SQLServer.Windows.Discovery!Microsoft.SQLServer.Windows.AvailabilityGroupHealth&quot; metricId=&quot;SqlServerSupplemental!SqlServerSupplemental.BackupStatus.AvailabilityGroup.Monitor&quot; /&gt;&lt;GroupTileMap classId=&quot;Microsoft.SQLServer.Windows.Discovery!Microsoft.SQLServer.Windows.LocalDBEngine&quot; metricId=&quot;SqlServerSupplemental!SqlServerSupplemental.BackupStatus.DBEngine.Monitor&quot; /&gt;&lt;/GroupTile&gt;&lt;DataCenterClass classId=&quot;microsoft.sqlserver.windows.discovery!microsoft.sqlserver.windows.localdbengine&quot;&gt;&lt;Tile type=&quot;Monitor&quot; tileId=&quot;6d179ef9-ca17-47f3-8617-0c7df7fb114d&quot; displayName=&quot;Backup Status&quot; order=&quot;1&quot; monitorId=&quot;SqlServerSupplemental!SqlServerSupplemental.BackupStatus.DBEngine.Monitor&quot; /&gt;&lt;/DataCenterClass&gt;&lt;DataCenterClass classId=&quot;microsoft.sqlserver.windows.discovery!microsoft.sqlserver.windows.availabilitygrouphealth&quot;&gt;&lt;Tile type=&quot;Monitor&quot; tileId=&quot;99e5b1b8-b56a-4537-a430-1162151bb38c&quot; displayName=&quot;Backup Status&quot; order=&quot;1&quot; monitorId=&quot;SqlServerSupplemental!SqlServerSupplemental.BackupStatus.AvailabilityGroup.Monitor&quot; /&gt;&lt;/DataCenterClass&gt;&lt;/DatacenterGroup&gt;&lt;/DashboardConfiguration&gt;" />
+          </Binding>
+        </Bindings>
+      </ComponentOverride>
+    </ComponentOverrides>
+    <ComponentImplementations>
+      <ComponentImplementation ID="SqlServerSupplemental.BackupStatus.Dashboard.View.Implementation" Accessibility="Public" TypeId="SqlServerSupplemental.BackupStatus.Dashboard.View" Platform="Wpf, Silverlight">
+        <Composite>
+          <Base />
+        </Composite>
+      </ComponentImplementation>
+    </ComponentImplementations>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.Dashboard.View">
+          <Name>Backup Status</Name>
+        </DisplayString>
+        <DisplayString ElementID="SqlServerSupplemental.BackupStatus.Dashboard.View.Implementation">
+          <Name>Backup Status</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

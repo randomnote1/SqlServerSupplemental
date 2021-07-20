@@ -1,0 +1,140 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{6d42a187-6778-488c-81da-084401bd7e7e}</ProjectGuid>
+    <RootNamespace>SqlServerSupplemental</RootNamespace>
+    <Name>Microsoft SQL Server Supplemental</Name>
+    <ManagementPackName>SqlServerSupplemental</ManagementPackName>
+    <Version>1.0.0.0</Version>
+    <MpFrameworkVersion>v7.0.3</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Microsoft</Company>
+    <Copyright>Copyright (c) Microsoft. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>..\..\Build\SqlServerSupplemental.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SQLServer.Core.Library">
+      <HintPath>C:\Program Files (x86)\System Center Management Packs\Microsoft System Center Management Pack for SQL Server on Windows\7.0.24.0\Microsoft.SQLServer.Core.Library.mpb</HintPath>
+      <Alias>SqlCore</Alias>
+      <MinVersion>7.0.24.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SQLServer.Visualization.Library">
+      <HintPath>C:\Program Files (x86)\System Center Management Packs\Microsoft System Center Management Pack for SQL Server on Windows\7.0.24.0\Microsoft.SQLServer.Visualization.Library.mpb</HintPath>
+      <Alias>MSVL</Alias>
+      <MinVersion>7.0.24.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SQLServer.Windows.Discovery">
+      <HintPath>C:\Program Files (x86)\System Center Management Packs\Microsoft System Center Management Pack for SQL Server on Windows\7.0.24.0\Microsoft.SQLServer.Windows.Discovery.mpb</HintPath>
+      <Alias>SqlWindows</Alias>
+      <MinVersion>7.0.24.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.AdminItem.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2016\System.AdminItem.Library.mp</HintPath>
+      <Alias>SAL</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Software.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2016\System.Software.Library.mp</HintPath>
+      <Alias>SSL</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataSources\SqlServerSupplemental.BackupStatus.DataSource.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\SqlServerSupplemental.BackupStatus.AvailabilityGroup.Monitor.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\SqlServerSupplemental.BackupStatus.DBEngine.Monitor.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\SqlServerSupplemental.BackupStatus.Dashboard.View.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\SqlServerSupplemental.BackupStatus.Folder.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\SqlServerSupplemental.Folder.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProbeActions\SqlServerSupplemental.BackupStatus.ProbeAction.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources\SqlServerSupplemental.GetDatabaseBackupStatus.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources\SqlServerSupplemental.HelperFunctions.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\SqlServerSupplemental.BackupStatus.AvailabilityGroup.GetDatabaseBackupStatus.Task.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\SqlServerSupplemental.BackupStatus.DBEngine.GetDatabaseBackupStatus.Task.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\SqlServerSupplemental.BackupStatus.MonitorType.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataSources" />
+    <Folder Include="Monitors" />
+    <Folder Include="Tasks" />
+    <Folder Include="Presentation" />
+    <Folder Include="Types" />
+    <Folder Include="ProbeActions" />
+    <Folder Include="Resources" />
+    <Folder Include="Scripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Get-DatabaseBackupStatus.ps1" />
+    <EmbeddedResource Include="Scripts\Get-DatabaseBackupStatusTask.ps1" />
+    <EmbeddedResource Include="Scripts\HelperFunctions.ps1" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>
